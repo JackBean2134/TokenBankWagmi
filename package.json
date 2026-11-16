@@ -1,0 +1,18 @@
+{
+  "name": "tokenbank-wagmi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TokenBank (tokenbank-v2 模式) + CalledToken + wagmi 前端 + Node indexer 的全栈 Demo",
+  "scripts": {
+    "anvil": "anvil",
+    "deploy": "cd contract && forge script script/Deploy.s.sol:Deploy --rpc-url http://127.0.0.1:8545 --broadcast",
+    "simulate": "cd contract && forge script script/SimTransfer.s.sol:SimTransfer --rpc-url http://127.0.0.1:8545 --broadcast",
+    "indexer": "node back_scripts/indexer.js",
+    "front": "npm --prefix front run dev",
+    "test": "cd contract && forge test",
+    "build": "npm --prefix front run build"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

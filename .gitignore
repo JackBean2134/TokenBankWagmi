@@ -1,0 +1,21 @@
+# Node
+node_modules/
+dist/
+*.log
+
+# Foundry 编译输出
+cache/
+out/
+broadcast/
+
+# 生产 ABI 保留，但构建产物忽略
+contract/.github/
+contract/lib/forge-std/.github/
+
+# 环境文件
+.env
+.env.*
+
+# 系统文件
+.DS_Store
+Thumbs.db
