@@ -77,6 +77,7 @@ function TransferHistory({ address }: { address: string }) {
     const timer = setInterval(fetchRecords, 5000);
     return () => clearInterval(timer);
   }, [address]);
+
   const copyHash = (hash: string) => {
     navigator.clipboard?.writeText(hash).then(() => {
       setCopied(hash);
@@ -120,7 +121,7 @@ function TransferHistory({ address }: { address: string }) {
                 <th>数量</th>
                 <th>从</th>
                 <th>到</th>
-                <th>Tx Hash</th>
+                <th>TX HASH</th>
                 <th>区块</th>
               </tr>
             </thead>
@@ -243,7 +244,7 @@ export default function App() {
       refetchBank();
       setNotice("存款成功 🎉");
     }
-  }, [depositReceipt.isSuccess]);
+  }, [depositReceipt.isSuccess, refetchToken, refetchBank]);
 
   useEffect(() => {
     if (withdrawReceipt.isSuccess) {
@@ -251,9 +252,11 @@ export default function App() {
       refetchBank();
       setNotice("取款成功 ✅");
     }
-  }, [withdrawReceipt.isSuccess]);
+  }, [withdrawReceipt.isSuccess, refetchToken, refetchBank]);
 
-  const depositPending = deposit.isPending || depositReceipt.isPending;
+  // 关键修复：仅当本次会话发起了交易，才判定为 pending，避免刷新后永久转圈
+  const depositPending = deposit.isPending || (!!deposit.data && depositReceipt.isPending);
+  const withdrawPending = withdraw.isPending || (!!withdraw.data && withdrawReceipt.isPending);
 
   const handleDeposit = () => {
     if (!address || !depositAmount || Number(depositAmount) <= 0) return;
@@ -410,9 +413,9 @@ export default function App() {
                 <button
                   className="primary block green"
                   onClick={handleWithdraw}
-                  disabled={withdraw.isPending || !withdrawAmount}
+                  disabled={withdrawPending || !withdrawAmount}
                 >
-                  {withdraw.isPending ? (
+                  {withdrawPending ? (
                     <>
                       <Loader2 size={16} className="spin" />
                       取款中…
