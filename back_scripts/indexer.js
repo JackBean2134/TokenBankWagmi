@@ -205,12 +205,13 @@ const server = http.createServer((req, res) => {
   sendJSON(res, 404, { code: 404, msg: "Not Found" });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log("========================================");
-  console.log("  TokenBank Indexer 已启动");
-  console.log(`  RPC   : ${RPC_URL}`);
-  console.log(`  Token : ${TOKEN_ADDRESS}`);
-  console.log(`  API   : http://127.0.0.1:${PORT}/api/transfers/:address`);
+  console.log("TokenBank Indexer 已启动");
+  console.log(`RPC  : ${RPC_URL}`);
+  console.log(`Token : ${TOKEN_ADDRESS}`);
+  console.log(`API  : http://0.0.0.0:${PORT}/api/transfers/:address`);
   console.log("========================================");
   loop();
 });
+
