@@ -108,6 +108,9 @@ token.transferWithCallback(bank, amount)
 ```
 
 因此用户无需先 `approve`，一次调用即可完成存款。安全校验见合约内 `require`（仅允许代币合约调用回调等）。
+## 网页转账成功展示
+<img width="930" height="764" alt="withdraw" src="https://github.com/user-attachments/assets/6d121913-06f0-4024-9652-04d4a325bfbc" />
+
 
 ## 技术栈
 
